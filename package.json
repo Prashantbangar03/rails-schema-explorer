@@ -21,6 +21,15 @@
     "url": "https://github.com/Prashantbangar03/rails-schema-explorer/issues"
   },
   "homepage": "https://github.com/Prashantbangar03/rails-schema-explorer#readme",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Requires local db/structure.sql or db/schema.rb files in the workspace."
+    }
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -135,7 +144,9 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && tsc -p test && node --test out-test/**/*.test.js",
+    "test:compile": "tsc -p test"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

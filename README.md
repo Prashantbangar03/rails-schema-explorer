@@ -151,6 +151,38 @@ If the schema file is older than recent migrations:
 
 Open **Settings** and search for `schemaExplorer`.
 
+## Limitations
+
+| Topic | Details |
+|-------|---------|
+| **Rails only** | Reads `db/structure.sql` or `db/schema.rb` — not Prisma, Sequelize, or generic SQL files |
+| **PostgreSQL (full)** | Enums, domains, views, and partial indexes are parsed from `structure.sql` PostgreSQL dumps |
+| **`schema.rb` only** | Tables and Rails `create_enum` / `t.enum` work; PG views and custom types from dumps are not available |
+| **MySQL / SQLite** | Partial support via `schema.rb`; PostgreSQL-specific features do not apply |
+| **Remote / virtual workspaces** | Requires local schema files on disk (see `virtualWorkspaces` in `package.json`) |
+| **Very large schemas** | Parsing runs in-process; extremely large dumps may take a moment on first open |
+
+## Privacy
+
+This extension:
+
+- Reads schema and model files **locally** from your workspace
+- Does **not** send data to external servers
+- Does **not** include telemetry or analytics
+- Stores UI preferences (sidebar width, collapsed sections) in **webview localStorage** only
+
+## Keyboard shortcut notes
+
+Default shortcuts may conflict with other extensions or custom keybindings:
+
+| Shortcut | Possible conflict |
+|----------|---------------------|
+| `Cmd+Alt+S` / `Ctrl+Alt+S` | Other “save” or navigation bindings |
+| `Ctrl+Shift+J` | Join lines / panel toggles in some setups |
+| `Cmd+Shift+R` / `Ctrl+Shift+R` | Only active when the explorer panel is focused |
+
+Rebind under **Keyboard Shortcuts** → search `Rails Schema`.
+
 ## Use cases
 
 - **Onboarding** — understand tables, FKs, and join relationships without reading raw SQL
@@ -165,6 +197,7 @@ Open **Settings** and search for `schemaExplorer`.
 cd schema-explorer-vscode
 npm install
 npm run compile
+npm test
 ```
 
 Press **F5** to launch an Extension Development Host.
@@ -235,6 +268,9 @@ schema-explorer-vscode/
 │   └── schemaExplorerPanel.ts
 ├── media/
 │   └── schema-explorer.html   # Explorer UI (webview)
+├── test/                      # Parser and path validation tests
+│   └── parser.test.ts
+├── CHANGELOG.md
 ├── images/                    # Icon + README screenshots
 └── package.json
 ```

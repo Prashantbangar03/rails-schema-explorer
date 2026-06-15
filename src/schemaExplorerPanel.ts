@@ -6,6 +6,11 @@ import { getSchemaIndex } from './schemaIndex';
 import { projectLabel, summarizeProjects } from './schemaProject';
 import { serializeSchema, workspaceRelativePath } from './schemaSerializer';
 import { getStaleSchemaInfo } from './staleSchema';
+import {
+  isAllowedStaleCommand,
+  isModelFilePath,
+  isSchemaFilePath,
+} from './workspacePath';
 
 export interface ExplorerOpenOptions {
   table?: string;
@@ -181,19 +186,21 @@ export class SchemaExplorerPanel {
         break;
       }
       case 'copyStaleCommand':
-        if (msg.command) {
+        if (msg.command && isAllowedStaleCommand(msg.command)) {
           await vscode.env.clipboard.writeText(msg.command);
           void vscode.window.setStatusBarMessage('Copied dump command', 2000);
         }
         break;
       case 'openSchemaFile':
-        if (msg.path) {
+        if (msg.path && isSchemaFilePath(msg.path)) {
           const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(msg.path));
           await vscode.window.showTextDocument(doc);
+        } else if (msg.path) {
+          void vscode.window.showWarningMessage('Cannot open schema file outside the workspace.');
         }
         break;
       case 'runStaleCommand':
-        if (msg.command) {
+        if (msg.command && isAllowedStaleCommand(msg.command)) {
           const term = vscode.window.createTerminal('Schema dump');
           term.show();
           term.sendText(msg.command);
@@ -203,7 +210,7 @@ export class SchemaExplorerPanel {
         await this.refresh(this.lastOptions);
         break;
       case 'openModel':
-        if (msg.path) {
+        if (msg.path && isModelFilePath(msg.path)) {
           if (!fs.existsSync(msg.path)) {
             void vscode.window.showWarningMessage(
               `Model file not found: ${workspaceRelativePath(vscode.Uri.file(msg.path))}`
@@ -212,6 +219,8 @@ export class SchemaExplorerPanel {
           }
           const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(msg.path));
           await vscode.window.showTextDocument(doc);
+        } else if (msg.path) {
+          void vscode.window.showWarningMessage('Cannot open model file outside the workspace.');
         }
         break;
     }
