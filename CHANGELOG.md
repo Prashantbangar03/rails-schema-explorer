@@ -2,6 +2,17 @@
 
 All notable changes to **Rails Schema Navigator** are documented in this file.
 
+## [1.0.1] - 2026-06-15
+
+### Fixed
+
+- README images use GitHub raw URLs so icons and screenshots render on the Marketplace listing
+- Repository and homepage links point to `rails-schema-navigator` (was `rails-schema-explorer` on 1.0.0)
+
+### Changed
+
+- README trimmed to end-user content only (install, features, settings)
+
 ## [1.0.0] - 2026-06-15
 
 ### Added

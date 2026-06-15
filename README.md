@@ -1,7 +1,7 @@
 # Rails Schema Navigator
 
 <p align="center">
-  <img src="images/icon.png" alt="Rails Schema Navigator icon" width="128" />
+  <img src="https://raw.githubusercontent.com/Prashantbangar03/rails-schema-navigator/main/images/icon.png" alt="Rails Schema Navigator icon" width="128" />
 </p>
 
 **Navigate Rails `db/structure.sql` and `db/schema.rb` visually** — search tables, trace foreign keys, inspect PostgreSQL enums and views, compare columns, and jump to ActiveRecord models. Built for Ruby on Rails developers using VS Code and Cursor.
@@ -11,7 +11,7 @@ Turn a 2,000-line PostgreSQL dump or Rails schema file into a searchable UI — 
 Works in **VS Code** and **Cursor**. This extension is **Rails-only** (not Prisma, MySQL dumps, or generic SQL).
 
 <p align="center">
-  <img src="images/hero.png" alt="Rails Schema Navigator main view — sidebar, table detail, columns and foreign keys" width="900" />
+  <img src="https://raw.githubusercontent.com/Prashantbangar03/rails-schema-navigator/main/images/hero.png" alt="Rails Schema Navigator main view — sidebar, table detail, columns and foreign keys" width="900" />
 </p>
 
 ## Why use it
@@ -45,12 +45,12 @@ Or from the command line:
 code --install-extension prashantbangar03.rails-schema-navigator
 ```
 
-### From VSIX (teams / offline)
+### From VSIX (offline)
+
+If you have a VSIX file:
 
 ```bash
-npm run compile
-npx @vscode/vsce package --no-dependencies
-code --install-extension rails-schema-navigator-1.0.0.vsix
+code --install-extension /path/to/rails-schema-navigator.VSIX
 ```
 
 Reload the window after installing.
@@ -104,7 +104,7 @@ Collapsible sections per table (state saved per table):
 - **Copy name** — copies the table name
 
 <p align="center">
-  <img src="images/compare.png" alt="Compare mode — side-by-side column diff between two Rails tables" width="900" />
+  <img src="https://raw.githubusercontent.com/Prashantbangar03/rails-schema-navigator/main/images/compare.png" alt="Compare mode — side-by-side column diff between two Rails tables" width="900" />
 </p>
 
 ### Rails integration
@@ -182,98 +182,6 @@ Default shortcuts may conflict with other extensions or custom keybindings:
 | `Cmd+Shift+R` / `Ctrl+Shift+R` | Only active when the explorer panel is focused |
 
 Rebind under **Keyboard Shortcuts** → search `Rails Schema Navigator`.
-
-## Use cases
-
-- **Onboarding** — understand tables, FKs, and join relationships without reading raw SQL
-- **PR review** — verify migrations, indexes, and constraints in context
-- **Debugging** — trace FK paths and M2M join tables quickly
-- **Model ↔ DB** — jump between schema and `app/models`
-- **Large schemas** — search and filter instead of scrolling `structure.sql`
-
-## Develop from source
-
-```bash
-cd rails-schema-navigator
-npm install
-npm run compile
-npm test
-```
-
-Press **F5** to launch an Extension Development Host.
-
-## Publish to VS Code Marketplace
-
-### 1. Create a publisher (one-time)
-
-1. Open [Visual Studio Marketplace — Manage Publishers](https://marketplace.visualstudio.com/manage)
-2. Sign in with your **Microsoft** account
-3. Click **Create publisher**
-4. Set **Publisher ID** to `prashantbangar03` (must match `package.json` → `"publisher"`)
-5. Fill in display name and save
-
-### 2. Create a Personal Access Token (one-time)
-
-1. Open [Azure DevOps — Personal Access Tokens](https://dev.azure.com/_usersSettings/tokens)
-2. Click **+ New Token**
-3. Name: `vscode-marketplace`
-4. Organization: **All accessible organizations**
-5. Expiration: choose a duration (e.g. 90 days or custom)
-6. Scopes: **Custom defined** → check **Marketplace** → **Manage**
-7. Create and **copy the token** (you won't see it again)
-
-### 3. Login and publish
-
-From the extension directory:
-
-```bash
-cd rails-schema-navigator
-npm run compile
-npx @vscode/vsce login prashantbangar03
-# paste your PAT when prompted
-
-npx @vscode/vsce publish
-```
-
-Or publish in one step without saving the token:
-
-```bash
-npx @vscode/vsce publish -p <YOUR_PAT>
-```
-
-After publish, the extension will appear at:
-
-`https://marketplace.visualstudio.com/items?itemName=prashantbangar03.rails-schema-navigator`
-
-Users can install with:
-
-```bash
-code --install-extension prashantbangar03.rails-schema-navigator
-```
-
-### Updating a published version
-
-1. Bump `"version"` in `package.json` (semver, e.g. `1.0.1`)
-2. Commit, push to GitHub
-3. Run `npx @vscode/vsce publish` again
-
-## Project layout
-
-```
-rails-schema-navigator/
-├── src/
-│   ├── parser.ts              # structure.sql + schema.rb parsing
-│   ├── schemaIndex.ts         # Load/cache schema per project
-│   ├── modelIndex.ts          # Rails enum + model scanning
-│   └── schemaExplorerPanel.ts
-├── media/
-│   └── schema-explorer.html   # Explorer UI (webview)
-├── test/                      # Parser and path validation tests
-│   └── parser.test.ts
-├── CHANGELOG.md
-├── images/                    # Icon + README screenshots
-└── package.json
-```
 
 ## License
 

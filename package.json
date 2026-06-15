@@ -2,7 +2,7 @@
   "name": "rails-schema-navigator",
   "displayName": "Rails Schema Navigator",
   "description": "Navigate Rails db/structure.sql and db/schema.rb visually — tables, columns, foreign keys, PostgreSQL enums, views, join tables, and ActiveRecord model links.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "prashantbangar03",
   "author": {
     "name": "Prashant Bangar"
@@ -166,7 +166,8 @@
     "test": "npm run compile && tsc -p test && node --require ./out-test/helpers/register-vscode-mock.js --test --test-concurrency=1 out-test/**/*.test.js",
     "test:coverage": "npm run compile && tsc -p test && c8 --check-coverage --lines 80 --functions 80 --branches 80 --statements 80 --include 'out/**/*.js' --exclude 'out-test/**' node --require ./out-test/helpers/register-vscode-mock.js --test --test-concurrency=1 out-test/**/*.test.js",
     "test:compile": "tsc -p test",
-    "package": "vsce package --no-dependencies --no-rewrite-relative-links",
+    "package": "vsce package --no-dependencies",
+    "package:local": "vsce package --no-dependencies --no-rewrite-relative-links",
     "publish:marketplace": "vsce publish --no-dependencies"
   },
   "devDependencies": {
